@@ -4,12 +4,16 @@ subtitle: "Points"
 author: "Robin Lovelace"
 cache: true
 format: gfm
+execute: 
+  echo: false
+  message: false
+  warning: false
 ---
 
 This quarto document builds on [previous](https://github.com/Robinlovelace/30mapchallenge2023/blob/main/day1-points.qmd) work looking at national road traffic casualty data.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ```{r}
@@ -189,6 +193,7 @@ fatalities_by_age |>
 ```
 
 ```{r}
+#| label: "0-15"
 # Same with just 0-15 year olds:
 fatalities_by_age = fatalities |>
   filter(accident_year >= 2012) |>
@@ -221,6 +226,7 @@ fatalities_by_age |>
 ```
 
 ```{r}
+#| label: "16-25"
 # Same with just 16-25 year olds:
 fatalities_by_age = fatalities |>
   filter(accident_year >= 2012) |>
