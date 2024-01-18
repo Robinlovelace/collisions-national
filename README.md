@@ -252,9 +252,9 @@ fatalities_by_age = fatalities |>
 ``` r
 fatalities_by_age |>
   ggplot(aes(accident_year, n, group = age_band)) +
-  geom_line(aes(colour = age_band)) +
+  geom_line() +
   theme_minimal() +
-  labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
+  labs(x = "Year", y = "Number of fatalities") +
   scale_x_continuous(breaks = seq(2012, 2022, 1)) +
   # Y axis starting at 0:
   scale_y_continuous(limits = c(0, NA))  +
@@ -292,12 +292,12 @@ fatalities_by_age = fatalities |>
 ``` r
 fatalities_by_age |>
   ggplot(aes(accident_year, n, group = age_band)) +
-  geom_line(aes(colour = age_band)) +
+  geom_line() +
   theme_minimal() +
-  labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
+  labs(x = "Year", y = "Number of fatalities") +
   scale_x_continuous(breaks = seq(2012, 2022, 1)) +
   # Y axis starting at 0:
-  scale_y_continuous(limits = c(0, NA)) +
+  scale_y_continuous(limits = c(0, NA))  +
   # Add graph title:
   ggtitle("Road traffic fatalities in GB aged 16-25, 2012-2022") +
   # Add subtitle:
