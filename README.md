@@ -100,7 +100,7 @@ fatalities_by_age |>
   ggplot(aes(accident_year, n, group = age_band_of_casualty)) +
   geom_line(aes(colour = age_band_of_casualty)) +
   theme_minimal() +
-  labs(x = "Year", y = "Number of fatalities", colour = "Age band")
+  labs(x = "Year", y = "Number of fatalities", colour = "Age band") 
 ```
 
 ![](README_files/figure-commonmark/unnamed-chunk-7-1.png)
@@ -140,7 +140,21 @@ fatalities_by_age |>
   ggplot(aes(accident_year, n, group = age_band)) +
   geom_line(aes(colour = age_band)) +
   theme_minimal() +
-  labs(x = "Year", y = "Number of fatalities", colour = "Age band")
+  labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
+  # Add graph title:
+  ggtitle("Road traffic fatalities in GB by age band, 1979-2022") +
+  # Add subtitle:
+  labs(subtitle = "Source: Department for Transport STATS19 data") +
+  # Add author name:
+  # labs(caption = "Data visualisation: Robin Lovelace\nSee github.com/robinlovelace for reproducible code") +
+  labs(caption = "Data visualisation: Robin Lovelace") +
+  # Add a theme:
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+  # Make caption text grey:
+    plot.caption = element_text(colour = "grey50"),
+    plot.subtitle = element_text(colour = "grey50")
+    )
 ```
 
 ![](README_files/figure-commonmark/unnamed-chunk-9-1.png)
@@ -163,10 +177,64 @@ fatalities_by_age |>
   geom_line(aes(colour = age_band)) +
   theme_minimal() +
   labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
-  scale_x_continuous(breaks = seq(2012, 2022, 1))
+  scale_x_continuous(breaks = seq(2012, 2022, 1)) +
+  # Add graph title:
+  ggtitle("Road traffic fatalities in GB by age band, 2012-2022") +
+  # Add subtitle:
+  labs(subtitle = "Source: Department for Transport STATS19 data") +
+  # Add author name:
+  # labs(caption = "Data visualisation: Robin Lovelace\nSee github.com/robinlovelace for reproducible code") +
+  labs(caption = "Data visualisation: Robin Lovelace") +
+  # Add a theme:
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+  # Make caption text grey:
+    plot.caption = element_text(colour = "grey50"),
+    plot.subtitle = element_text(colour = "grey50")
+    )
 ```
 
 ![](README_files/figure-commonmark/unnamed-chunk-10-1.png)
+
+``` r
+# Same with just 0-15 and 16-25 year olds:
+fatalities_by_age = fatalities |>
+  filter(accident_year >= 2012) |>
+  filter(age_band == "0 - 15" | age_band == "16 - 25") |>
+  group_by(accident_year, age_band) |>
+  summarise(n = n()) |>
+  arrange(desc(n))
+```
+
+    `summarise()` has grouped output by 'accident_year'. You can override using the
+    `.groups` argument.
+
+``` r
+fatalities_by_age |>
+  ggplot(aes(accident_year, n, group = age_band)) +
+  geom_line(aes(colour = age_band)) +
+  theme_minimal() +
+  labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
+  scale_x_continuous(breaks = seq(2012, 2022, 1)) +
+  # Y axis starting at 0:
+  scale_y_continuous(limits = c(0, NA))  +
+  # Add graph title:
+  ggtitle("Road traffic fatalities in GB by age band, 2012-2022") +
+  # Add subtitle:
+  labs(subtitle = "Source: Department for Transport STATS19 data") +
+  # Add author name:
+  # labs(caption = "Data visualisation: Robin Lovelace\nSee github.com/robinlovelace for reproducible code") +
+  labs(caption = "Data visualisation: Robin Lovelace") +
+  # Add a theme:
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+  # Make caption text grey:
+    plot.caption = element_text(colour = "grey50"),
+    plot.subtitle = element_text(colour = "grey50")
+    )
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-11-1.png)
 
 ``` r
 # Same with just 0-15 year olds:
@@ -187,12 +255,79 @@ fatalities_by_age |>
   geom_line(aes(colour = age_band)) +
   theme_minimal() +
   labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
-  scale_x_continuous(breaks = seq(2012, 2022, 1))
+  scale_x_continuous(breaks = seq(2012, 2022, 1)) +
+  # Y axis starting at 0:
+  scale_y_continuous(limits = c(0, NA))  +
+  # Add graph title:
+  ggtitle("Road traffic fatalities in GB aged 0-15, 2012-2022") +
+  # Add subtitle:
+  labs(subtitle = "Source: Department for Transport STATS19 data") +
+  # Add author name:
+  # labs(caption = "Data visualisation: Robin Lovelace\nSee github.com/robinlovelace for reproducible code") +
+  labs(caption = "Data visualisation: Robin Lovelace") +
+  # Add a theme:
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+  # Make caption text grey:
+    plot.caption = element_text(colour = "grey50"),
+    plot.subtitle = element_text(colour = "grey50")
+    )
 ```
 
-![](README_files/figure-commonmark/unnamed-chunk-11-1.png)
+![](README_files/figure-commonmark/unnamed-chunk-12-1.png)
+
+``` r
+# Same with just 16-25 year olds:
+fatalities_by_age = fatalities |>
+  filter(accident_year >= 2012) |>
+  filter(age_band == "16 - 25") |>
+  group_by(accident_year, age_band) |>
+  summarise(n = n()) |>
+  arrange(desc(n))
+```
+
+    `summarise()` has grouped output by 'accident_year'. You can override using the
+    `.groups` argument.
+
+``` r
+fatalities_by_age |>
+  ggplot(aes(accident_year, n, group = age_band)) +
+  geom_line(aes(colour = age_band)) +
+  theme_minimal() +
+  labs(x = "Year", y = "Number of fatalities", colour = "Age band") +
+  scale_x_continuous(breaks = seq(2012, 2022, 1)) +
+  # Y axis starting at 0:
+  scale_y_continuous(limits = c(0, NA)) +
+  # Add graph title:
+  ggtitle("Road traffic fatalities in GB aged 16-25, 2012-2022") +
+  # Add subtitle:
+  labs(subtitle = "Source: Department for Transport STATS19 data") +
+  # Add author name:
+  # labs(caption = "Data visualisation: Robin Lovelace\nSee github.com/robinlovelace for reproducible code") +
+  labs(caption = "Data visualisation: Robin Lovelace") +
+  # Add a theme:
+  theme(
+    plot.title = element_text(hjust = 0.5), 
+  # Make caption text grey:
+    plot.caption = element_text(colour = "grey50"),
+    plot.subtitle = element_text(colour = "grey50")
+    )
+```
+
+![](README_files/figure-commonmark/unnamed-chunk-13-1.png)
 
 The same information as a table:
+
+``` r
+fatalities_by_age = fatalities |>
+  filter(accident_year >= 2012) |>
+  filter(age_band == "0 - 15" | age_band == "16 - 25") |>
+  group_by(accident_year, age_band) |>
+  summarise(n = n())
+```
+
+    `summarise()` has grouped output by 'accident_year'. You can override using the
+    `.groups` argument.
 
 ``` r
 fatalities_by_age |>
@@ -201,19 +336,19 @@ fatalities_by_age |>
   knitr::kable()
 ```
 
-| accident_year | 0 - 15 |
-|--------------:|-------:|
-|          2022 |     49 |
-|          2021 |     36 |
-|          2020 |     41 |
-|          2019 |     39 |
-|          2018 |     48 |
-|          2017 |     48 |
-|          2016 |     69 |
-|          2015 |     54 |
-|          2014 |     53 |
-|          2013 |     48 |
-|          2012 |     61 |
+| accident_year | 0 - 15 | 16 - 25 |
+|--------------:|-------:|--------:|
+|          2022 |     49 |     318 |
+|          2021 |     36 |     287 |
+|          2020 |     41 |     244 |
+|          2019 |     39 |     288 |
+|          2018 |     48 |     319 |
+|          2017 |     48 |     327 |
+|          2016 |     69 |     356 |
+|          2015 |     54 |     382 |
+|          2014 |     53 |     392 |
+|          2013 |     48 |     417 |
+|          2012 |     61 |     416 |
 
 Next, we’ll join the collisions dataset with the casualties, so we can
 find out where casualties happened etc.
